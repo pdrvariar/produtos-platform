@@ -16,6 +16,9 @@ use App\Http\Controllers\Api\ProdutoController;
 
 Route::prefix('v1')->group(function () {
 
+    // Rota pública para listar produtos (útil para debug ou leitura pública)
+    Route::get('produtos', [ProdutoController::class, 'index']);
+
     /*
     |--------------------------------------------------------------------------
     | Rotas protegidas pelo Keycloak
@@ -24,8 +27,8 @@ Route::prefix('v1')->group(function () {
 
     Route::middleware(['keycloak'])->group(function () {
 
-        // CRUD completo de produtos
-        Route::apiResource('produtos', ProdutoController::class);
+        // CRUD completo de produtos (exclui index pois já está exposto publicamente)
+        Route::apiResource('produtos', ProdutoController::class)->except(['index']);
 
     });
 
