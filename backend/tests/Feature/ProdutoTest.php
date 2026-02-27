@@ -28,14 +28,39 @@ class ProdutoTest extends TestCase
         Cache::flush();
     }
 
-    /**
-     * A basic feature test example.
-     */
-    public function test_example(): void
+    /** @test */
+    public function deve_criar_produto_com_sucesso()
     {
-        $response = $this->get('/');
+        $this->markTestIncomplete('Teste ainda não implementado.');
+    }
 
-        $response->assertStatus(200);
+    /** @test */
+    public function nao_deve_criar_produto_com_dados_invalidos()
+    {
+        $this->markTestIncomplete('Teste ainda não implementado.');
+    }
+
+    /** @test */
+    public function deve_listar_produtos()
+    {
+        $this->markTestIncomplete('Teste ainda não implementado.');
+    }
+
+    /** @test */
+    public function deve_buscar_produto_por_id()
+    {
+        $this->markTestIncomplete('Teste ainda não implementado.');
+    }
+
+    /** @test */
+    public function deve_atualizar_produto()
+    {
+        $this->markTestIncomplete('Teste ainda não implementado.');
+    }
+
+    /** @test */
+    public function deve_excluir_produto()
+    {
+        $this->markTestIncomplete('Teste ainda não implementado.');
     }
 }
-
