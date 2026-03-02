@@ -16,7 +16,10 @@ RUN apt-get update && apt-get install -y \
 # Instala extensões PHP necessárias
 # pdo → camada de abstração para banco
 # pdo_mysql → suporte ao MySQL
-RUN docker-php-ext-install pdo pdo_mysql
+# bcmath → para manipulação de números de precisão arbitrária (comum no Laravel)
+# opcache → para cache de opcode, melhorando a performance
+RUN docker-php-ext-install pdo pdo_mysql bcmath
+RUN docker-php-ext-install opcache
 
 # Copia o Composer da imagem oficial para dentro do container
 # Evita precisar instalar manualmente
@@ -26,5 +29,11 @@ COPY --from=composer:latest /usr/bin/composer /usr/bin/composer
 # Todos os comandos seguintes serão executados a partir daqui
 WORKDIR /var/www
 
-
-
+# Copia os arquivos de dependência primeiro para aproveitar o cache do Docker
+COPY composer.json composer.lock ./
+# Instala as dependências sem scripts de execução e otimizado para produção/autoloader
+RUN composer install --no-scripts --no-autoloader --prefer-dist
+# Copia o restante dos arquivos da aplicação
+COPY . .
+# Gera o autoloader do Composer
+RUN composer dump-autoload --optimize

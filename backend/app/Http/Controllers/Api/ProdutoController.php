@@ -19,8 +19,8 @@ class ProdutoController extends Controller
     {
         try {
 
-            $produtos = Cache::remember('produtos', 60, function () {
-                return Produto::all();
+            $produtos = Cache::remember('produtos_paginados', 60, function () {
+                return Produto::paginate(10); // Pagina os resultados, 10 por página
             });
 
             return response()->json($produtos, 200);

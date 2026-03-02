@@ -73,7 +73,8 @@ async function consultarProdutos() {
     });
 
     //Capturar o json da resposta
-    const produtos = await response.json();
+    const resultadoPaginado = await response.json();
+    const produtos = resultadoPaginado.data; // Acessa a lista de produtos dentro da propriedade 'data'
 
     //Popular a tabela com os produtos
     const tabela = document.getElementById('productTableBody');
