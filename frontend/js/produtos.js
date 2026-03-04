@@ -58,14 +58,20 @@ async function consultarProdutos() {
     //Capturar o token do usuário na local storage
     const token = localStorage.getItem('access_token');
 
+    //Verificar se o token existe
+    if (!token) {
+        alert('Usuário não autenticado. Faça login para consultar os produtos.');
+        return;
+    }
+
     //Enviar a requisição para o backend usando fetch
-    const response = await fetch('http://localhost:8000/api/v1/produtos',
-    {
+    const response = await fetch('http://localhost:8000/api/v1/produtos', {
         method: 'GET',
         headers: {
             'Authorization': `Bearer ${token}`
         }
     });
+
     //Capturar o json da resposta
     const produtos = await response.json();
 
