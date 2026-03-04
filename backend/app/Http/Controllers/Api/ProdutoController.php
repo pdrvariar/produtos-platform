@@ -13,7 +13,7 @@ use Exception;
 class ProdutoController extends Controller
 {
     /**
-     * Display a listing of the resource. dddd
+     * Display a listing of the resource.
      */
     public function index(): JsonResponse
     {
