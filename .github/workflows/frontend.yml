@@ -8,12 +8,12 @@ name: Frontend CI - Treinamento TJ/PR COTI Informatica
 on:
   push:
     branches:
-      - master
+      - main
     paths:
       - "frontend/**"
   pull_request:
     branches:
-      - master
+      - main
     paths:
       - "frontend/**"
 
@@ -24,14 +24,13 @@ on:
 jobs:
 
   build:
-    runs-on: ubuntu-latest
-    needs: build
+    runs-on: ubuntu-latest    
     defaults:
       run:
         working-directory: frontend
     steps:
-      - name: Compilando aplicação
-        run: echo "Iniciando o processo de compilação!"
+      - name: Compilando aplicaÃ§Ã£o
+        run: echo "Iniciando o processo de compilaÃ§Ã£o!"
 
   deploy:
     runs-on: ubuntu-latest
@@ -40,5 +39,5 @@ jobs:
       run:
         working-directory: frontend
     steps:
-      - name: Iniciando implantação
-        run: echo "Iniciando a implantação do projeto!"
+      - name: Iniciando implantaÃ§Ã£o
+        run: echo "Iniciando a implantaÃ§Ã£o do projeto!"
