@@ -8,12 +8,12 @@ name: Frontend CI - Treinamento TJ/PR COTI Informatica
 on:
   push:
     branches:
-      - main
+      - master
     paths:
       - "frontend/**"
   pull_request:
     branches:
-      - main
+      - master
     paths:
       - "frontend/**"
 
