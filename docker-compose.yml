@@ -20,9 +20,11 @@ services:
       # Bind mount com cache (reduz sincronização em macOS/Windows)
       - ./backend:/var/www:delegated
       # Volumes anônimos para pastas que não precisam ser sincronizadas com o host
-      - /var/www/vendor
+      #- /var/www/vendor
+      - vendor_data:/var/www/vendor
       - /var/www/node_modules   # se houver frontend dentro do backend (ex: Laravel com Vite)
       - composer_cache:/root/.composer/cache
+      - ./php/local.ini:/usr/local/etc/php/conf.d/local.ini      
     environment:
       - PHP_OPCACHE_ENABLE=1
       - PHP_OPCACHE_REVALIDATE_FREQ=0   # em desenvolvimento, revalida arquivos a cada requisição (para não precisar reiniciar)
@@ -39,8 +41,9 @@ services:
     ports:
       - "8000:80"
     volumes:
-      - ./backend:/var/www:cached
+      - ./backend:/var/www:delegated
       - ./docker/nginx/default.conf:/etc/nginx/conf.d/default.conf:cached
+      - vendor_data:/var/www/vendor # Nginx também precisa ver o vendor se houver assets
     depends_on:
       - app
     networks:
@@ -56,7 +59,8 @@ services:
       - "3306:3306"
     command:
       - --innodb_buffer_pool_size=256M   # Aumenta cache do MySQL
-      - --query_cache_type=0             # Desabilita query cache (obsoleto no MySQL 8)
+    volumes:
+      - mysql_data:/var/lib/mysql
     networks:
       - produtos_net
 
@@ -77,6 +81,8 @@ services:
     command: start-dev
     ports:
       - "8080:8080"
+    volumes:
+      - keycloak_mysql_data:/var/lib/mysql
     networks:
       - produtos_net
 
@@ -99,4 +105,10 @@ networks:
 
 volumes:
   composer_cache:
+    driver: local
+  vendor_data:
+    driver: local
+  mysql_data:
+    driver: local
+  keycloak_mysql_data:
     driver: local
