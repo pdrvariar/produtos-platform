@@ -22,7 +22,7 @@ class ProdutoTest extends TestCase
         parent::setUp(); # Chama o método 'setUp' da classe pai
 
         #Ignorar todos os middlewares para evitar autenticação
-        #e outras verificações durante os testes
+        #e outras verificações durante os testes/Pablo
         $this->withoutMiddleware();
 
         #Executar os migrations para garantir que

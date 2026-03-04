@@ -12,3 +12,5 @@ class Produto extends Model
         "quantidade"
     ];
 }
+
+//PRODUTOS
