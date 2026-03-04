@@ -16,10 +16,6 @@ class KeycloakMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if ($request->getMethod() === "OPTIONS") {
-            return response()->json([], 200);
-        }
-
         // Verifica se o header Authorization existe
         $authHeader = $request->header('Authorization');
 

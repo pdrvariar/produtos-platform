@@ -10,8 +10,6 @@ use Illuminate\Support\Facades\Cache;
 use Illuminate\Database\Eloquent\ModelNotFoundException;
 use Exception;
 
-
-/* Comentario */
 class ProdutoController extends Controller
 {
     /**
@@ -21,8 +19,8 @@ class ProdutoController extends Controller
     {
         try {
 
-            $produtos = Cache::remember('produtos_paginados', 60, function () {
-                return Produto::paginate(10); // Pagina os resultados, 10 por página
+            $produtos = Cache::remember('produtos', 60, function () {
+                return Produto::all();
             });
 
             return response()->json($produtos, 200);
@@ -40,21 +38,30 @@ class ProdutoController extends Controller
      */
     public function store(Request $request): JsonResponse
     {
-        $validated = $request->validate([
-            'nome' => 'required|string|max:255',
-            'preco' => 'required|numeric|min:0',
-            'quantidade' => 'required|integer|min:0'
-        ]);
+        try {
 
-        $produto = Produto::create($validated);
+            $validated = $request->validate([
+                'nome'  => 'required|string|max:255',
+                'preco' => 'required|numeric|min:0',
+                'quantidade' => 'required|integer|min:0'
+            ]);
 
-        // Limpa cache
-        Cache::forget('produtos');
+            $produto = Produto::create($validated);
 
-        return response()->json([
-            'message' => 'Produto criado com sucesso',
-            'data' => $produto
-        ], 201);
+            // Limpa cache
+            Cache::forget('produtos');
+
+            return response()->json([
+                'message' => 'Produto criado com sucesso',
+                'data' => $produto
+            ], 201);
+
+        } catch (Exception $e) {
+            return response()->json([
+                'message' => 'Erro ao criar produto',
+                'error' => $e->getMessage()
+            ], 500);
+        }
     }
 
     /**
@@ -90,7 +97,7 @@ class ProdutoController extends Controller
             $produto = Produto::findOrFail($id);
 
             $validated = $request->validate([
-                'nome' => 'sometimes|string|max:255',
+                'nome'  => 'sometimes|string|max:255',
                 'preco' => 'sometimes|numeric|min:0',
                 'quantidade' => 'sometimes|integer|min:0'
             ]);
@@ -144,3 +151,5 @@ class ProdutoController extends Controller
         }
     }
 }
+
+
