@@ -81,7 +81,7 @@ class ProdutoTest extends TestCase
         //$response->assertStatus(422)
         $response->assertStatus(500)
             ->assertJsonFragment([
-                'message' => 'Ocorreram erros de validação'
+                'message' => 'Erro ao criar produto'
             ]);
     }
 
