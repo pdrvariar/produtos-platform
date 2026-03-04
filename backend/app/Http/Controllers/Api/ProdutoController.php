@@ -13,7 +13,7 @@ use Exception;
 class ProdutoController extends Controller
 {
     /**
-     * Display a listing of the resource. d
+     * Display a listing of the resource. dddd
      */
     public function index(): JsonResponse
     {
@@ -34,7 +34,7 @@ class ProdutoController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
+     * Store a newly created resource in storage. Verdade
      */
     public function store(Request $request): JsonResponse
     {
