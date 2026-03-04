@@ -55,7 +55,23 @@ jobs:
     defaults:
       run:
         working-directory: backend
+    services:
+      mysql:
+        image: mysql:8
+        env:
+          MYSQL_ROOT_PASSWORD: root
+          MYSQL_DATABASE: produtos_test
+        port:
+          - 3306:3306
+        options:
+          --health-cmd="mysqladmin ping --silent"
+          --health-interval=10s
+          --health-timeout=5s
+          --health-retries=5
     steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+        
       - name: Iniciando testes
         run: echo "Iniciando o processo de testes!"
 
@@ -66,5 +82,8 @@ jobs:
       run:
         working-directory: backend
     steps:
+      - name: Checkout do código
+        uses: actions/checkout@v4
+
       - name: Iniciando implantação
         run: echo "Iniciando a implantação do projeto!"

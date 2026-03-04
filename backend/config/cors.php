@@ -9,10 +9,8 @@ return [
     //Definir os métodos HTTP permitidos (GET, POST, PUT, DELETE, etc.)
     'allowed_methods' => ['*'],
 
-    //Definir os domínios que podem acessar a API (ex: http://localhost:3000)
-    'allowed_origins' => ['http://localhost:3000'],
-
-    //Patterns de origens permitidas (ex: *.meudominio.com)
+    //Definir os domínios que podem acessar a API (ex: http://localhost:3000)  
+    'allowed_origins' => ['*'],    //Patterns de origens permitidas (ex: *.meudominio.com)
     'allowed_origins_patterns' => [],
 
     //Definir os headers permitidos nas requisições

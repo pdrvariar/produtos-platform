@@ -16,6 +16,12 @@ class KeycloakMiddleware
      */
     public function handle(Request $request, Closure $next): Response
     {
+
+        // permita as requisições CORS
+        if ($request->getMethod() === "OPTIONS") {
+            return response()->json([], 200);
+        }
+
         // Verifica se o header Authorization existe
         $authHeader = $request->header('Authorization');
 
